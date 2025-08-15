@@ -4,13 +4,7 @@ import logo from "../../assets/images/logoFinder.png"
 import { FaBars } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import { useState } from "react";
-
-interface NavItem {
-    name: string;
-    href: string;
-    icon?: React.ReactNode;
-    active?: boolean
-}
+import type { NavItem } from "../../Models/NavItem";
 
 const NavLinks: NavItem[] = [
     {name: "Inicio", href: "#", active: true},
@@ -46,11 +40,11 @@ export function Header() {
                 <i><FaBars /></i>
             </button>
         </nav>
-        {isMobileMenuOpen && (
+        {isMobileMenuOpen && 
         <ul className={Styles.navList_Mobile}>
             {renderNavItems()}
         </ul>
-        )}
+        }
     </header>
     )
 }
