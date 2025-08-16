@@ -1,0 +1,14 @@
+.GenericHtml {
+  display: flex;
+  flex-direction: column;
+} 
+
+.subTitle {
+  font-size: clamp(2rem, 5vw, 3rem);
+  color: var(--text-over-principal);
+}
+
+.subTitle span  {
+  text-transform: uppercase;
+  background-color: var(--principal);
+}

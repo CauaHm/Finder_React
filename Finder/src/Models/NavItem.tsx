@@ -1,6 +1,12 @@
 export interface NavItem {
-    name: string;
+    name?: string;
     href: string;
     icon?: React.ReactNode;
-    active?: boolean
+    active?: boolean;
+}
+
+export interface NavItemFooter {
+    name?: string;
+    href: string;
+    icon: React.ReactNode
 }
