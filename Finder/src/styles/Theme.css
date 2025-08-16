@@ -2,7 +2,11 @@
     --texto-1:#1d1d1dad;
     --texto-2:#1d1d1d;
 
-    --principal-1: #ffe8b4;
+    --principal-light: #ffe8b4;
+    --principal: #ffcb45;
+    --principal-dark: #e9a209;
+
+    --text-over-principal: #1d1d1d;
 
     --branco: #fff;
 }
