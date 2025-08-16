@@ -1,15 +1,13 @@
-import { Footer } from './components/Footer'
-import { Header } from './components/Header'
 import './styles/Theme.css'
 import './styles/Global.css'
 
+import { Home } from './pages/Home'
+
 
 function App() {
-
   return (
     <>
-    <Header/>
-    <Footer/>
+    <Home/>
     </>
   )
 }

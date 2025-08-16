@@ -6,7 +6,7 @@ export function Footer() {
     
     return(
          <footer className={Styles.rodape}>
-            <img src={wave}/>
+            <img src={wave} aria-hidden="true"/>
             <div className={Styles.footer_items}>
                 <span className={Styles.copy}>
                     &copy 2025 Finder@v.2
