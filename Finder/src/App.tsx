@@ -1,11 +1,15 @@
+import { Footer } from './components/Footer'
 import { Header } from './components/Header'
-import './styles/App.css'
+import './styles/Theme.css'
+import './styles/Global.css'
+
 
 function App() {
 
   return (
     <>
-      <Header/>
+    <Header/>
+    <Footer/>
     </>
   )
 }
