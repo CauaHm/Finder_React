@@ -1,29 +1,18 @@
-import type React from "react";
-import { Footer } from "../../components/Footer";
-import { Header } from "../../components/Header";
-import { Container } from "../../components/Container";
 import styles from './styles.module.css';
+import { Footer } from '../../components/Footer';
+import type React from 'react';
 
-type MainTamplatesProps = {
-    children: React.ReactNode
-}
+type MainTemplatesProps = {
+  children: React.ReactNode;
+};
 
-export function MainTamplates({children}: MainTamplatesProps) {
-    return(
-        
-        <div className={styles.mainTemplateContainer}> 
-            <Container>       
-                <Header/>
-            </Container>
-
-           
-            <main className={styles.mainContent}>
-                {children}
-            </main>
-            
-            <Container>
-                <Footer/>
-            </Container>
-        </div>
-    )
+export function MainTemplates({ children }: MainTemplatesProps) {
+  return (
+    <div className={styles.contentWrapper}>
+      <main className={styles.mainContent}>
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
 }

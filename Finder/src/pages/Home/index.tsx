@@ -1,12 +1,9 @@
-import { GenericHtml } from "../../components/GenericHtml";
-import { MainTamplates } from "../../Templates/MainTampletes";
+import { Hero } from './Hero';
 
 export function Home() {
-    return( 
-           <>
-            <MainTamplates>
-                
-            </MainTamplates>
-           </>
+    return (
+        <>
+            <Hero />
+        </>
     )
 }
