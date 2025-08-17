@@ -2,8 +2,7 @@ import type React from "react";
 import { Footer } from "../../components/Footer";
 import { Header } from "../../components/Header";
 import { Container } from "../../components/Container";
-import { Main } from "../../components/Main";
-
+import styles from './styles.module.css';
 
 type MainTamplatesProps = {
     children: React.ReactNode
@@ -11,16 +10,20 @@ type MainTamplatesProps = {
 
 export function MainTamplates({children}: MainTamplatesProps) {
     return(
-        <>
-            <Container>        
+        
+        <div className={styles.mainTemplateContainer}> 
+            <Container>       
                 <Header/>
             </Container>
-            <Main>
+
+           
+            <main className={styles.mainContent}>
                 {children}
-            </Main>
+            </main>
+            
             <Container>
                 <Footer/>
             </Container>
-        </>
+        </div>
     )
 }
