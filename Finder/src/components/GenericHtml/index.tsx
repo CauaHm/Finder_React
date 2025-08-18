@@ -9,15 +9,18 @@ type GenericHtmlProps = {
 
 export function GenericHtml({ titulo, tituloGrifado, children }: GenericHtmlProps) {
   return (
-    <motion.div
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }}  
+    <div
+          
         className={styles.GenericHtml}
         >
 
-      <h2 className={styles.subTitle}>{titulo} <span className={styles.subTitleSpan}>{tituloGrifado}</span></h2>
+      <motion.h2
+      initial={{ opacity: 0, x: -5000 }}
+      animate={{ opacity: 0, x: 0 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 1 }}
+      className={styles.subTitle}>{titulo} <span className={styles.subTitleSpan}>{tituloGrifado}</span></motion.h2>
       {children}
-    </motion.div>
+    </div>
   );
 }
