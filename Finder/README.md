@@ -1,3 +1,11 @@
+*Dependencias*
+
+React Icons(para icones):
+* npm install react-icons --save
+
+FramerMotion(Para as animações):
+* npm install motion
+
 *Guia de Organização de Branches*
 
 1.1. Atualize sua branch principal
