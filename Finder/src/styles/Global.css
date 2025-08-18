@@ -17,7 +17,7 @@ html,body{
     width: 100%;
 }
 body {
-    background-color: #fff9ea;
+    background-color: var(--background);
     display: flex;
     flex-direction: column;
     justify-content: space-between;

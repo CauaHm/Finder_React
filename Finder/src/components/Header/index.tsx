@@ -23,7 +23,7 @@ export function Header() {
 
     const renderNavItems = () => {
         return NavLinks.map((i) => {
-             return <li className={`${Styles.navList_item} ${i.active ? Styles.active : ""}`}><a href={i.href}>{i.icon ? i.icon : i.name}</a></li>
+             return <li key={i.name} className={`${Styles.navList_item} ${i.active ? Styles.active : ""}`}><a href={i.href}>{i.icon ? i.icon : i.name}</a></li>
         })
     }
 
