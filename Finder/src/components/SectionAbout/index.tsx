@@ -11,9 +11,10 @@ export function SectionAbout() {
       <div className={styles.shape}></div>
       <motion.div
         className={styles.leftSction}
-        initial={{ opacity: 0, x: -100 }}
-        animate={{ opacity: 1, x: 0 }}
-        transition={{ duration: 0.8 }} 
+        initial={{ opacity: 0, x: -50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        animate={{ opacity: 0, x: 0 }}
+        transition={{ duration: 1 }} 
       >
         <h1 className={styles.title}>Aumente suas vendas! Cadastre seus produtos e <span>alcance mais clientes na sua região!</span></h1>
         <p>Cadastre seus produtos agora e ganhe mais visibilidade, atraindo clientes próximos e impulsionando seu negócio!</p>
