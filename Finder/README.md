@@ -1,5 +1,8 @@
 *Dependencias*
 
+
+npm install react-router-dom
+
 React Icons(para icones):
 * npm install react-icons --save
 
