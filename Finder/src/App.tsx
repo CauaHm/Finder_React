@@ -1,18 +1,10 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './styles/Theme.css';
 import './styles/Global.css';
-
-import { Home } from './pages/Home';
-import { Login } from './pages/Login';
+import { Nav } from './pages/Nav';
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-      </Routes>
-    </BrowserRouter>
+    <Nav/>
   );
 }
 
