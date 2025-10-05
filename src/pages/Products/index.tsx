@@ -1,11 +1,16 @@
+import { Categories } from "../../components/Categories";
+import { Main } from "../../components/Main";
+import { ProductsSearch } from "../../components/ProductsSearch";
 import { MainTamplates } from "../../Templates/MainTampletes";
 
 export function Products() {
   return (
-    <>
       <MainTamplates>
-        <h1>teste</h1>
+        <Main>
+          <h2>Produtos</h2>
+          <ProductsSearch/>
+          <Categories/>
+        </Main>
       </MainTamplates>
-    </>
   );
 }

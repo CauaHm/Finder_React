@@ -8,4 +8,4 @@ export function Main({ children }: MainProps) {
   return (
     <main className={styles.content}>{children}</main>
   );
-}a
+}
