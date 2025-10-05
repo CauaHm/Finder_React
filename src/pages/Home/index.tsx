@@ -4,13 +4,13 @@ import { SectionServices } from "../../components/SectionServices";
 import { MainTamplates } from "../../Templates/MainTampletes";
 
 export function Home() {
-    return( 
-           <>
-            <MainTamplates>
-                <SectionAbout/>
-                <SectionAboutDoWeDo/>
-                <SectionServices/>
-            </MainTamplates>
-           </>
-    )
+  return (
+    <>
+      <MainTamplates>
+        <SectionAbout />
+        <SectionAboutDoWeDo />
+        <SectionServices />
+      </MainTamplates>
+    </>
+  );
 }
