@@ -1,12 +1,65 @@
 import { useState } from 'react';
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaUser, FaEnvelope, FaLock } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import styles from './styles.module.css';
 
-export function LoginCard() {
-  const [isSignInActive, setIsSignInActive] = useState(false); 
 
-  const handleToggle = () => {
-    setIsSignInActive(!isSignInActive);
+export function LoginCard() {
+  const [isSignInActive, setIsSignInActive] = useState(false);
+
+  // Estados do formulário de login
+  const [loginEmail, setLoginEmail] = useState('');
+  const [loginPassword, setLoginPassword] = useState('');
+
+  // Estados do formulário de registro
+  const [registerName, setRegisterName] = useState('');
+  const [registerEmail, setRegisterEmail] = useState('');
+  const [registerPassword, setRegisterPassword] = useState('');
+
+  const handleToggle = () => setIsSignInActive(!isSignInActive);
+
+  // Função para login
+  const navigate = useNavigate();
+  const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email: loginEmail, password: loginPassword }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        localStorage.setItem('token', data.token);
+        alert('Login realizado com sucesso!');
+        navigate('/');
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
+  };
+
+  // Função para registro
+  const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/register', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: registerName, email: registerEmail, password: registerPassword }),
+      });
+      const data = await res.json();
+      if (res.ok) {
+        alert('Conta criada com sucesso! Faça login.');
+        setIsSignInActive(true);
+      } else {
+        alert(data.message);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
@@ -29,11 +82,14 @@ export function LoginCard() {
               </>
             )}
           </div>
+
           {/* Coluna da direita - Formulário */}
           <div className={`${styles.secondColumn} ${styles.column}`}>
             {isSignInActive ? (
               <>
                 <h2 className={`${styles.titleLogin} ${styles.titleSecond}`}>Faça login no Finder</h2>
+
+                {/* Ícones sociais */}
                 <div className={styles.socialMediaLogin}>
                   <ul className={styles.listSocialMedia}>
                     <a className={styles.linkSocialMedia} href="#"><li className={styles.itemSocialMedia}><FaFacebookF /></li></a>
@@ -41,10 +97,31 @@ export function LoginCard() {
                     <a className={styles.linkSocialMedia} href="#"><li className={styles.itemSocialMedia}><FaLinkedinIn /></li></a>
                   </ul>
                 </div>
+
                 <p className={`${styles.descriptionLogin} ${styles.descriptionSecond}`}>ou use sua conta de email:</p>
-                <form method="POST" action="login.php" className={styles.formLogin}>
-                  <label className={styles.labelLoginInput}><FaEnvelope className={styles.iconModify} /><input type="email" placeholder="Email" /></label>
-                  <label className={styles.labelLoginInput}><FaLock className={styles.iconModify} /><input type="password" placeholder="Senha" /></label>
+
+                {/* Formulário de login */}
+                <form onSubmit={handleLogin} className={styles.formLogin}>
+                  <label className={styles.labelLoginInput}>
+                    <FaEnvelope className={styles.iconModify} />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={loginEmail}
+                      onChange={(e) => setLoginEmail(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <label className={styles.labelLoginInput}>
+                    <FaLock className={styles.iconModify} />
+                    <input
+                      type="password"
+                      placeholder="Senha"
+                      value={loginPassword}
+                      onChange={(e) => setLoginPassword(e.target.value)}
+                      required
+                    />
+                  </label>
                   <a className={styles.passwordLogin} href="#">esqueceu sua senha?</a>
                   <button className={`${styles.btnLogin} ${styles.btnSecond}`}>Entrar</button>
                 </form>
@@ -52,6 +129,8 @@ export function LoginCard() {
             ) : (
               <>
                 <h2 className={`${styles.titleLogin} ${styles.titleSecond}`}>Crie uma conta</h2>
+
+                {/* Ícones sociais */}
                 <div className={styles.socialMediaLogin}>
                   <ul className={styles.listSocialMedia}>
                     <a className={styles.linkSocialMedia} href="#"><li className={styles.itemSocialMedia}><FaFacebookF /></li></a>
@@ -59,10 +138,39 @@ export function LoginCard() {
                     <a className={styles.linkSocialMedia} href="#"><li className={styles.itemSocialMedia}><FaLinkedinIn /></li></a>
                   </ul>
                 </div>
-                <form method="POST" action="register.php" className={styles.formLogin}>
-                  <label className={styles.labelLoginInput}><FaUser className={styles.iconModify} /><input type="text" placeholder="Nome" /></label>
-                  <label className={styles.labelLoginInput}><FaEnvelope className={styles.iconModify} /><input type="email" placeholder="Email" /></label>
-                  <label className={styles.labelLoginInput}><FaLock className={styles.iconModify} /><input type="password" placeholder="Senha" /></label>
+
+                {/* Formulário de registro */}
+                <form onSubmit={handleRegister} className={styles.formLogin}>
+                  <label className={styles.labelLoginInput}>
+                    <FaUser className={styles.iconModify} />
+                    <input
+                      type="text"
+                      placeholder="Nome"
+                      value={registerName}
+                      onChange={(e) => setRegisterName(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <label className={styles.labelLoginInput}>
+                    <FaEnvelope className={styles.iconModify} />
+                    <input
+                      type="email"
+                      placeholder="Email"
+                      value={registerEmail}
+                      onChange={(e) => setRegisterEmail(e.target.value)}
+                      required
+                    />
+                  </label>
+                  <label className={styles.labelLoginInput}>
+                    <FaLock className={styles.iconModify} />
+                    <input
+                      type="password"
+                      placeholder="Senha"
+                      value={registerPassword}
+                      onChange={(e) => setRegisterPassword(e.target.value)}
+                      required
+                    />
+                  </label>
                   <button className={`${styles.btnLogin} ${styles.btnSecond}`}>Criar</button>
                 </form>
               </>
