@@ -1,8 +1,6 @@
 import Styles from "./styles.module.css"
 
-import { FaInstagram } from "react-icons/fa";
-import { FaWhatsapp } from "react-icons/fa";
-import { FaEnvelope } from "react-icons/fa";
+import { FaInstagram, FaWhatsapp, FaEnvelope } from "react-icons/fa6";
 import type {NavItem} from "../../Models/NavItem"
 
 export function SocialButtons() {

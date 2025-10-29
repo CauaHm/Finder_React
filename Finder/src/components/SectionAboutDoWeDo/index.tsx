@@ -21,11 +21,14 @@ export function SectionAboutDoWeDo() {
                 <li><BsPencilSquare /><span>Geolocalização de lojas</span></li>
             </ul>
     </motion.div>
-    <GenericHtml titulo='O que' tituloGrifado='fazemos?'>
-        <p>
-          O Finder é uma plataforma que conecta consumidores a diversas lojas locais, oferecendo uma experiência intuitiva e prática. Com comparação de preços em tempo real, os usuários encontram as melhores ofertas disponíveis na região. Além disso, a busca detalhada de produtos facilita a navegação e a escolha dos itens desejados. Para maior comodidade, o carrinho de compras virtual permite adicionar produtos de diferentes lojas em uma única compra. Também utilizamos geolocalização para ajudar os clientes a localizarem os estabelecimentos físicos com facilidade. Nosso objetivo é otimizar a experiência de compra local, promovendo o comércio regional e facilitando o acesso a produtos e serviços de forma eficiente.
-        </p>
-      </GenericHtml>
+    
+    <div className={styles.textContainer}>
+      <GenericHtml titulo='O que' tituloGrifado='fazemos?'>
+          <p>
+            O Finder é uma plataforma que conecta consumidores a diversas lojas locais, oferecendo uma experiência intuitiva e prática. Com comparação de preços em tempo real, os usuários encontram as melhores ofertas disponíveis na região. Além disso, a busca detalhada de produtos facilita a navegação e a escolha dos itens desejados. Para maior comodidade, o carrinho de compras virtual permite adicionar produtos de diferentes lojas em uma única compra. Também utilizamos geolocalização para ajudar os clientes a localizarem os estabelecimentos físicos com facilidade. Nosso objetivo é otimizar a experiência de compra local, promovendo o comércio regional e facilitando o acesso a produtos e serviços de forma eficiente.
+          </p>
+        </GenericHtml>
+    </div>
     </section>
   );
 }

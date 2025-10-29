@@ -177,3 +177,73 @@
     text-align: center;
     margin-top: 1rem;
 }
+
+
+.containerLoginMobile {
+    display: none;
+}
+
+.formLoginMobile {
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    max-width: 280px;
+    gap: 8px;
+}
+
+.formLoginMobile input {
+    width: 100%;
+    height: 38px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    background-color: var(--branco);
+    color: var(--texto-2);
+}
+
+.btnLoginMobile {
+    background-color: var(--principal);
+    border: none;
+    padding: 10px;
+    border-radius: 5px;
+    color: var(--texto-2);
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 1rem;
+}
+
+.containerLoginMobile p {
+    margin-top: 12px;
+    color: var(--texto-2);
+}
+
+.containerLoginMobile p a {
+    color: var(--principal-dark);
+    font-weight: 600;
+    cursor: pointer;
+}
+
+
+@media (max-width: 768px) {
+    .containerLogin {
+        display: none; 
+    }
+
+    .containerLoginMobile {
+        display: flex; 
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%; 
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .containerLoginMobile h2 {
+        color: var(--texto-2);
+        font-size: 22px;
+        margin-bottom: 1rem;
+    }
+}

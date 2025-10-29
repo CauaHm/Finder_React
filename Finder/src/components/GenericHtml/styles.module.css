@@ -17,3 +17,16 @@
   text-transform: uppercase;
   background-color: var(--principal);
 }
+
+
+@media screen and (max-width: 1170px) {
+
+    .GenericHtml {
+        width: 100%;
+        align-items: center; 
+        text-align: center;
+    }
+    .GenericHtml p {
+        text-align: center;
+    }
+}

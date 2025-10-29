@@ -31,3 +31,19 @@
     color: var(--texto-2);
     font-weight: 600;
 }
+
+@media screen and (max-width: 1170px) {
+    .section {
+        flex-direction: column;
+        width: 100%;
+        gap: 12px;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        margin-top: 40px;
+    }
+
+    .rightSection {
+       display: none;
+    }
+}

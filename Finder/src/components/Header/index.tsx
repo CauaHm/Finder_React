@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import Styles from "./styles.module.css";
 import logo from "../../assets/images/logoFinder.png";
 
-import { FaBars, FaHeart } from "react-icons/fa";
+import { FaBars, FaHeart } from "react-icons/fa6"; 
 import { useState } from "react";
 import type { NavItem } from "../../Models/NavItem";
 
