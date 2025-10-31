@@ -24,7 +24,7 @@ export function Favorites() {
   }, []);
   
   const handleToggleFavorite = (asin: string) => {
-    let updatedFavorites = favorites.filter(id => id !== asin);
+    const updatedFavorites = favorites.filter(id => id !== asin);
     setFavorites(updatedFavorites);
     setFavoriteProducts(prevProducts => prevProducts.filter(p => p.asin !== asin));
     localStorage.setItem("favoritos", JSON.stringify(updatedFavorites));

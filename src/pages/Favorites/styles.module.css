@@ -23,7 +23,6 @@
     padding: 50px;
     justify-content: center;
     align-items: center;
-    flex-direction: column;
     gap: 30px;
 }
 
