@@ -33,7 +33,7 @@ export function LoginCard() {
       
       if (res.ok) {
         login(data.token);
-        navigate("/produtos");
+        navigate("/products");
       } else {
         alert(data.message);
       }
