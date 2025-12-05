@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { FaFacebookF, FaGooglePlusG, FaLinkedinIn, FaUser, FaEnvelope, FaLock } from 'react-icons/fa6';
 import { useNavigate } from 'react-router-dom'; 
+import { useAuth } from '../../contexts/AuthContext';
 import styles from './styles.module.css';
 
 export function LoginCard() {
@@ -13,9 +14,11 @@ export function LoginCard() {
   const [registerEmail, setRegisterEmail] = useState("");
   const [registerPassword, setRegisterPassword] = useState("");
 
+  const { login } = useAuth();
+
   const handleToggle = () => setIsSignInActive(!isSignInActive);
 
-  const API_BASE_URL = "https://finder-server-ak5y.onrender.com/"; 
+  const API_BASE_URL = "http://localhost:5000"; 
   const navigate = useNavigate(); 
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,10 +30,10 @@ export function LoginCard() {
         body: JSON.stringify({ email: loginEmail, password: loginPassword }),
       });
       const data = await res.json();
+      
       if (res.ok) {
-        localStorage.setItem("token", data.token);
-        alert("Login realizado com sucesso!");
-        navigate("/");
+        login(data.token);
+        navigate("/produtos");
       } else {
         alert(data.message);
       }
@@ -52,43 +55,54 @@ export function LoginCard() {
         }),
       });
       const data = await res.json();
+      
       if (res.ok) {
-        alert("Conta criada com sucesso! Faça login.");
-        setIsSignInActive(true); 
+        alert("Conta criada com sucesso! Fazendo login automático...");
+        
+        const loginRes = await fetch(`${API_BASE_URL}/api/auth/login`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ email: registerEmail, password: registerPassword }),
+        });
+        const loginData = await loginRes.json();
+        
+        if (loginRes.ok) {
+            localStorage.setItem("token", loginData.token);
+            navigate("/products");
+        } else {
+            setIsSignInActive(true); 
+        }
+
       } else {
-        alert(data.message);
+        alert(data.message || "Erro no cadastro");
       }
     } catch (err) {
       console.error(err);
+      alert("Erro ao conectar com o servidor.");
     }
   };
 
-
   return (
     <main className={styles.mainContainer}>
-      {/* ===== VERSÃO DESKTOP ===== */}
       <div className={styles.containerLogin}>
         <div className={styles.contentLogin}>
-          {/* Coluna da esquerda - Login/Cadastro */}
           <div className={`${styles.firstColumn} ${styles.column}`}>
             {isSignInActive ? (
               <>
                 <h2 className={`${styles.titleLogin} ${styles.titlePrimary}`}>Bem-vindo!</h2>
-                <p className={`${styles.descriptionLogin} ${styles.descriptionPrimary}`}>Para se manter conectado</p>
-                <button onClick={handleToggle} className={`${styles.btnLogin} ${styles.btnPrimary}`}>Entrar</button>
+                <p className={`${styles.descriptionLogin} ${styles.descriptionPrimary}`}>Não possui uma conta?</p>
+                <button onClick={handleToggle} className={`${styles.btnLogin} ${styles.btnPrimary}`}>Criar</button>
               </>
             ) : (
               <>
                 <h2 className={`${styles.titleLogin} ${styles.titlePrimary}`}>Olá, amigo!</h2>
-                <p className={`${styles.descriptionLogin} ${styles.descriptionPrimary}`}>Digite seus dados pessoais e comece a jornada conosco</p>
-                <button onClick={handleToggle} className={`${styles.btnLogin} ${styles.btnPrimary}`}>Criar</button>
+                <p className={`${styles.descriptionLogin} ${styles.descriptionPrimary}`}>Já esta conosco?</p>
+                <button onClick={handleToggle} className={`${styles.btnLogin} ${styles.btnPrimary}`}>Entrar</button>
               </>
             )}
           </div>
-          {/* Coluna da direita - Formulário */}
           <div className={`${styles.secondColumn} ${styles.column}`}>
             {isSignInActive ? (
-              // FORMULÁRIO DE LOGIN (Desktop)
               <>
                 <h2 className={`${styles.titleLogin} ${styles.titleSecond}`}>Faça login no Finder</h2>
                 <div className={styles.socialMediaLogin}>
@@ -113,7 +127,6 @@ export function LoginCard() {
                 </form>
               </>
             ) : (
-              // FORMULÁRIO DE REGISTRO (Desktop)
               <>
                 <h2 className={`${styles.titleLogin} ${styles.titleSecond}`}>Crie uma conta</h2>
                 <div className={styles.socialMediaLogin}>
@@ -144,10 +157,8 @@ export function LoginCard() {
         </div>
       </div>
 
-
       <div className={styles.containerLoginMobile}>
         {isSignInActive ? (
-          // FORMULÁRIO DE LOGIN (Mobile)
           <>
             <h2>Login</h2>
             <form onSubmit={handleLogin} className={styles.formLoginMobile}>
@@ -162,7 +173,6 @@ export function LoginCard() {
             <p>Ainda não tem conta? <a href="#" onClick={handleToggle}>Cadastre-se</a></p>
           </>
         ) : (
-          // FORMULÁRIO DE REGISTRO (Mobile)
           <>
             <h2>Cadastro</h2>
             <form onSubmit={handleRegister} className={styles.formLoginMobile}>

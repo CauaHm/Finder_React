@@ -1,53 +1,91 @@
-import { Link } from 'react-router-dom'; 
-import Styles from "./styles.module.css";
-import logo from "../../assets/images/logoFinder.png";
-
-import { FaBars, FaHeart } from "react-icons/fa6"; 
-import { useState } from "react";
-import type { NavItem } from "../../Models/NavItem";
-
-const NavLinks: NavItem[] = [
-    { name: "Inicio", href: "/", active: true },
-    { name: "Produtos", href: "/products" },
-    { name: "Login", href: "/login" },
-    { name: "Favoritos", href: "/favorites", icon: <FaHeart /> },
-];
+import { useState } from 'react';
+import type { NavItem } from '../../Models/NavItem';
+import { Link, useLocation, useNavigate } from 'react-router-dom'; 
+import styles from './styles.module.css';
+import logo from '../../assets/images/logoFinder.png';
+import { FaBars, FaXmark } from 'react-icons/fa6';
+import { useAuth } from '../../contexts/AuthContext';
 
 export function Header() {
-    const [isMobileMenuOpen, setisMobileMenuOpen] = useState(false)
+  const [active, setActive] = useState(false);
+  const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const { isAuthenticated, logout } = useAuth(); 
 
-    const toggleMobileMenu = () => {
-        setisMobileMenuOpen(!isMobileMenuOpen)
-    }
+  const handleToggle = () => setActive(!active);
 
-    const renderNavItems = () => {
-        return NavLinks.map((i) => {
-            return (
-                <li key={i.name} className={`${Styles.navList_item} ${i.active ? Styles.active : ""}`}>
-                    <Link to={i.href}>{i.icon ? i.icon : i.name}</Link>
+  const handleLogout = () => {
+    logout();
+    setActive(false); 
+    navigate("/"); 
+  };
+
+  const allNavItems: NavItem[] = [
+    { name: "Home", path: "/" },
+    { name: "Produtos", path: "/products" },
+    { name: "Favoritos", path: "/favorites" },
+  ];
+
+  return (
+    <header className={styles.header}>
+      <div className={styles.container}>
+        <div className={styles.logoContainer}>
+            <Link to="/"> 
+                <img src={logo} alt="Logo Finder" />
+          </Link>
+        </div>
+
+        <nav className={`${styles.nav} ${active ? styles.navActive : ''}`}>
+          <button onClick={handleToggle} className={styles.btnClose}>
+            <FaXmark />
+          </button>
+          
+          <ul className={styles.ulLink}>
+            {allNavItems.map((item) => {
+              if (item.name === "Favoritos" && !isAuthenticated) {
+                return null;
+              }
+
+              return (
+                <li key={item.name}>
+                  <Link 
+                    to={item.path} 
+                    className={`${styles.link} ${pathname === item.path ? styles.activeLink : ''}`} 
+                    onClick={() => setActive(false)}
+                  >
+                    {item.name}
+                  </Link>
                 </li>
-            );
-        });
-    }
+              );
+            })}
 
-    return (
-        <header className={Styles.headerContainer}>
-            <nav className={Styles.headerNavBar}>
-                <Link to="/"> 
-                    <div className={Styles.navlogo}><img src={logo} alt="logo Finder" /></div>
+            {/* Lógica do botão Entrar/Sair */}
+            <li>
+              {isAuthenticated ? (
+                <span 
+                  className={styles.link} 
+                  onClick={handleLogout}
+                  style={{ cursor: 'pointer' }}
+                >
+                  Sair
+                </span>
+              ) : (
+                <Link 
+                  to="/login" 
+                  className={`${styles.link} ${pathname === '/login' ? styles.activeLink : ''}`}
+                  onClick={() => setActive(false)}
+                >
+                  Entrar
                 </Link>
-                <ul className={Styles.navList}>
-                    {renderNavItems()}
-                </ul>
-                <button onClick={toggleMobileMenu} className={Styles.btn_Mobile}>
-                    <i><FaBars /></i>
-                </button>
-            </nav>
-            {isMobileMenuOpen &&
-                <ul className={Styles.navList_Mobile}>
-                    {renderNavItems()}
-                </ul>
-            }
-        </header>
-    );
+              )}
+            </li>
+          </ul>
+        </nav>
+
+        <button onClick={handleToggle} className={styles.btnMobile}>
+          <FaBars />
+        </button>
+      </div>
+    </header>
+  );
 }

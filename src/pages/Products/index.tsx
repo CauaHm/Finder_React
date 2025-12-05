@@ -57,8 +57,12 @@ export function Products() {
         setProducts(productData);
         localStorage.setItem("produtos", JSON.stringify(productData)); 
       }
-    } catch (err: any) {
-      setError(err.message || "Erro ao buscar produtos.");
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
+      } else {
+        setError("Erro ao buscar produtos.");
+      }
       console.error(err);
     } finally {
       setIsLoading(false);
