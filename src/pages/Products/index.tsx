@@ -76,17 +76,34 @@ export function Products() {
   };
 
   const handleToggleFavorite = (asin: string) => {
-    let updatedFavorites: string[];
+    const storedFavorites = JSON.parse(localStorage.getItem("favoritos") || "[]");
     
-    if (favorites.includes(asin)) {
-      updatedFavorites = favorites.filter(id => id !== asin);
+    const isAlreadyFavorite = storedFavorites.some((p: Product) => p.asin === asin);
+    
+    let updatedFavorites;
+
+    if (isAlreadyFavorite) {
+      updatedFavorites = storedFavorites.filter((p: Product) => p.asin !== asin);
     } else {
-      updatedFavorites = [...favorites, asin];
+      const productToAdd = products.find(p => p.asin === asin);
+      if (productToAdd) {
+        updatedFavorites = [...storedFavorites, productToAdd];
+      } else {
+        updatedFavorites = storedFavorites;
+      }
     }
     
-    setFavorites(updatedFavorites);
+    const newFavoritesIds = updatedFavorites.map((p: Product) => p.asin);
+    setFavorites(newFavoritesIds);
+    
     localStorage.setItem("favoritos", JSON.stringify(updatedFavorites));
   };
+
+  useEffect(() => {
+    const storedFavoritesObjs = JSON.parse(localStorage.getItem("favoritos") || "[]");
+    const ids = storedFavoritesObjs.map((p: Product) => p.asin);
+    setFavorites(ids);
+  }, []);
 
   return (
       <MainTamplates>

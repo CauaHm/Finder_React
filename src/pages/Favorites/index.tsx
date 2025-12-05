@@ -6,27 +6,21 @@ import type { Product } from "../../Models/Product.tsx";
 import styles from './styles.module.css';
 
 export function Favorites() {
+  // O estado agora armazena diretamente os produtos
   const [favoriteProducts, setFavoriteProducts] = useState<Product[]>([]);
-  const [favorites, setFavorites] = useState<string[]>([]);
 
   useEffect(() => {
+    // Carrega os objetos salvos diretamente
     const storedFavorites = JSON.parse(localStorage.getItem("favoritos") || "[]");
-    const storedProducts: Product[] = JSON.parse(localStorage.getItem("produtos") || "[]");
-
-    setFavorites(storedFavorites);
-    
-    if (storedFavorites.length > 0 && storedProducts.length > 0) {
-      const favs = storedProducts.filter(product => 
-        storedFavorites.includes(product.asin)
-      );
-      setFavoriteProducts(favs);
-    }
+    setFavoriteProducts(storedFavorites);
   }, []);
   
   const handleToggleFavorite = (asin: string) => {
-    const updatedFavorites = favorites.filter(id => id !== asin);
-    setFavorites(updatedFavorites);
-    setFavoriteProducts(prevProducts => prevProducts.filter(p => p.asin !== asin));
+    // Remove o produto da lista visual
+    const updatedFavorites = favoriteProducts.filter(p => p.asin !== asin);
+    setFavoriteProducts(updatedFavorites);
+    
+    // Atualiza o localStorage com a nova lista de objetos
     localStorage.setItem("favoritos", JSON.stringify(updatedFavorites));
   };
 
@@ -44,7 +38,7 @@ export function Favorites() {
               <ProductCard 
                 key={product.asin}
                 product={product}
-                isFavorite={true} 
+                isFavorite={true} // Na página de favoritos, todos são favoritos
                 onToggleFavorite={handleToggleFavorite} 
               />
             ))
