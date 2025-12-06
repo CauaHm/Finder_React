@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { NavItem } from '../../Models/NavItem';
-import { Link, useLocation, useNavigate } from 'react-router-dom'; 
+import {  Link, useLocation, useNavigate } from 'react-router-dom'; 
 import styles from './styles.module.css';
 import logo from '../../assets/images/logoFinder.png';
 import { FaBars, FaXmark } from 'react-icons/fa6';
@@ -49,7 +49,7 @@ export function Header() {
               return (
                 <li key={item.name}>
                   <Link 
-                    to={item.path} 
+                    to={item.path || "/"}  
                     className={`${styles.link} ${pathname === item.path ? styles.activeLink : ''}`} 
                     onClick={() => setActive(false)}
                   >
@@ -59,7 +59,6 @@ export function Header() {
               );
             })}
 
-            {/* Lógica do botão Entrar/Sair */}
             <li>
               {isAuthenticated ? (
                 <span 
