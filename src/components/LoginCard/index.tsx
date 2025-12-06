@@ -18,7 +18,7 @@ export function LoginCard() {
 
   const handleToggle = () => setIsSignInActive(!isSignInActive);
 
-  const API_BASE_URL = "https://finder-react-ten.vercel.app/"; 
+  const API_BASE_URL = "http://localhost:5000"; 
   const navigate = useNavigate(); 
 
   const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
