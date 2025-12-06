@@ -12,7 +12,7 @@ export function SocialButtons() {
     ]
 
     const renderNavItems = () => {
-            return navItems.map((i) => {
+            return navItems.map((i, ) => {
                 return <li key={i.name} className={Styles.social_buttons}><a href={i.href}>{i.icon}</a></li>
             })
         }
