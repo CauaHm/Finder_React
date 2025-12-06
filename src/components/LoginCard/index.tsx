@@ -67,7 +67,7 @@ export function LoginCard() {
         const loginData = await loginRes.json();
         
         if (loginRes.ok) {
-            localStorage.setItem("token", loginData.token);
+            login(loginData.token);
             navigate("/products");
         } else {
             setIsSignInActive(true); 
