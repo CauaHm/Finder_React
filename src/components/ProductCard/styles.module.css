@@ -95,6 +95,23 @@
     text-decoration: underline;
 }
 
+.distanceContainer {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background-color: var(--principal-light);
+    padding: 4px 10px;
+    border-radius: 12px;
+    margin-top: 5px;
+    font-size: 0.8rem;
+    color: var(--texto-2);
+    font-weight: 600;
+}
+
+.distanceIcon {
+    color: var(--principal-dark);
+}
+
 @media screen and (max-width: 600px) {
     .product {
         height: 500px; 

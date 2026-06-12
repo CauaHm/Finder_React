@@ -1,6 +1,6 @@
 import styles from './styles.module.css';
 import type { Product } from '../../Models/Product.tsx'; 
-import { FaHeart } from 'react-icons/fa6';
+import { FaHeart, FaMapPin } from 'react-icons/fa6'; 
 import { generateStars } from '../../utils/starRating.tsx'; 
 
 type ProductCardProps = {
@@ -23,6 +23,14 @@ export function ProductCard({ product, isFavorite, onToggleFavorite }: ProductCa
       <div className={styles.productInfosImg}>
         <img src={product.product_photo} alt={product.product_title} />
         <h2>{product.product_title}</h2>
+        
+        {product.distance && (
+          <div className={styles.distanceContainer}>
+            <FaMapPin className={styles.distanceIcon} />
+            <span>Aprox. {product.distance}</span>
+          </div>
+        )}
+
         {product.product_original_price && (
           <p className={styles.pPromotion}>{product.product_original_price}</p>
         )}

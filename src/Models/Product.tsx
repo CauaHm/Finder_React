@@ -6,4 +6,5 @@ export interface Product {
   product_original_price?: string;
   product_star_rating: string | null;
   product_url: string;
+  distance?: string; 
 }

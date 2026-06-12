@@ -17,8 +17,9 @@ export function Products() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const storedFavorites = JSON.parse(localStorage.getItem("favoritos") || "[]");
-    setFavorites(storedFavorites);
+    const storedFavoritesObjs = JSON.parse(localStorage.getItem("favoritos") || "[]");
+    const ids = storedFavoritesObjs.map((p: Product) => p.asin);
+    setFavorites(ids);
   }, []);
 
   const fetchProducts = async (searchQuery: string) => {
@@ -53,9 +54,18 @@ export function Products() {
       if (!data.data?.products || data.data.products.length === 0) {
         setError("Nenhum produto encontrado.");
       } else {
-        const productData: Product[] = data.data.products;
-        setProducts(productData);
-        localStorage.setItem("produtos", JSON.stringify(productData)); 
+        const rawProducts: Product[] = data.data.products;
+
+        const productsWithMockedDistance = rawProducts.map((prod) => {
+          const randomDistance = (Math.random() * (15 - 1) + 1).toFixed(1); 
+          return {
+            ...prod,
+            distance: `${randomDistance} km`
+          };
+        });
+
+        setProducts(productsWithMockedDistance);
+        localStorage.setItem("produtos", JSON.stringify(productsWithMockedDistance)); 
       }
     } catch (err) {
       if (err instanceof Error) {
@@ -102,12 +112,6 @@ export function Products() {
     
     localStorage.setItem("favoritos", JSON.stringify(updatedFavorites));
   };
-
-  useEffect(() => {
-    const storedFavoritesObjs = JSON.parse(localStorage.getItem("favoritos") || "[]");
-    const ids = storedFavoritesObjs.map((p: Product) => p.asin);
-    setFavorites(ids);
-  }, []);
 
   return (
       <MainTamplates>
